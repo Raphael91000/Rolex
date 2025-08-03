@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
+// Import du logo
+import logoRolex from '../../assets/watches/LogoRolex.png';
+
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -17,13 +20,13 @@ export const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="max-w-7xl mx-auto py-4 flex items-center justify-between" style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+      <div className="max-w-7xl mx-auto py-2 flex items-center justify-between" style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0">
+        <Link to="/" className="flex-shrink-0" style={{ paddingLeft: '1.5rem' }}>
           <img
-            src="/logorolex-1.png"
+            src={logoRolex}
             alt="Rolex Logo"
-            className="w-32 h-32 object-contain"
+            className="h-20 w-auto object-contain"
           />
         </Link>
 
