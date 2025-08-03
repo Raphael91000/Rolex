@@ -13,17 +13,33 @@ interface Watch {
 interface WatchCarouselProps {
   watches: Watch[];
   category: string;
+  onWatchChange?: (watchId: number) => void;
 }
 
-export const WatchCarousel: React.FC<WatchCarouselProps> = ({ watches, category }) => {
+export const WatchCarousel: React.FC<WatchCarouselProps> = ({ watches, category, onWatchChange }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % watches.length);
+    const newIndex = (currentIndex + 1) % watches.length;
+    setCurrentIndex(newIndex);
+    if (onWatchChange) {
+      onWatchChange(watches[newIndex].id);
+    }
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + watches.length) % watches.length);
+    const newIndex = (currentIndex - 1 + watches.length) % watches.length;
+    setCurrentIndex(newIndex);
+    if (onWatchChange) {
+      onWatchChange(watches[newIndex].id);
+    }
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+    if (onWatchChange) {
+      onWatchChange(watches[index].id);
+    }
   };
 
   const getSlidePosition = (index: number) => {
@@ -38,111 +54,114 @@ export const WatchCarousel: React.FC<WatchCarouselProps> = ({ watches, category 
     center: {
       x: 0,
       scale: 1,
-      zIndex: 3,
+      zIndex: 5,
       opacity: 1,
     },
     left: {
-      x: -300,
-      scale: 0.8,
-      zIndex: 1,
-      opacity: 0.6,
+      x: -200,
+      scale: 0.75,
+      zIndex: 2,
+      opacity: 0.7,
     },
     right: {
-      x: 300,
-      scale: 0.8,
-      zIndex: 1,
-      opacity: 0.6,
+      x: 200,
+      scale: 0.75,
+      zIndex: 2,
+      opacity: 0.7,
     },
     hidden: {
       x: 0,
-      scale: 0.8,
-      zIndex: 0,
+      scale: 0.6,
+      zIndex: 1,
       opacity: 0,
     },
   };
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto px-6">
-      {/* Carousel Container */}
-      <div className="relative h-[600px] flex items-center justify-center overflow-hidden">
-        <AnimatePresence mode="sync">
-          {watches.map((watch, index) => {
-            const position = getSlidePosition(index);
-            if (position === 'hidden') return null;
+    <div className="relative w-full max-w-6xl mx-auto" style={{ marginLeft: '10px' }}>
+      {/* Container principal avec flexbox */}
+      <div className="flex items-center min-h-[600px]">
+        {/* Colonne gauche - Texte descriptif */}
+        <div className="w-1/3 pr-8" style={{ paddingLeft: '1.5rem' }}>
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-left"
+          >
+            <h3 className="font-playfair text-3xl text-[#f3f3f3] mb-3">
+              {watches[currentIndex].name}
+            </h3>
+            <p className="font-manrope text-[#e0e0e0] text-base mb-5 leading-relaxed max-w-md">
+              {watches[currentIndex].description}
+            </p>
+            <div className="font-manrope font-semibold text-[#7C7235] text-2xl">
+              {watches[currentIndex].price}
+            </div>
+          </motion.div>
+        </div>
 
-            return (
-              <motion.div
-                key={watch.id}
-                className="absolute flex flex-col items-center"
-                variants={slideVariants}
-                animate={position}
-                transition={{
-                  duration: 0.6,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-              >
-                {/* Watch Image */}
-                <div className="relative">
-                  <img
-                    src={watch.image}
-                    alt={watch.name}
-                    className="w-80 h-80 object-contain"
-                  />
-                  {/* Glow Effect */}
-                  <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.25)] to-transparent rounded-full blur-3xl -z-10" />
-                </div>
+        {/* Colonne droite - Carousel des montres */}
+        <div className="w-2/3 relative">
+          <div className="relative h-[400px] flex items-start justify-center" style={{ marginTop: '-120px' }}>
+            <AnimatePresence mode="sync">
+              {watches.map((watch, index) => {
+                const position = getSlidePosition(index);
+                if (position === 'hidden') return null;
 
-                {/* Watch Info - Only show for center slide */}
-                {position === 'center' && (
+                return (
                   <motion.div
-                    className="mt-8 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
+                    key={watch.id}
+                    className="absolute flex flex-col items-center"
+                    variants={slideVariants}
+                    animate={position}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                    }}
                   >
-                    <h3 className="font-playfair text-4xl text-[#f3f3f3] mb-4">
-                      {watch.name}
-                    </h3>
-                    <p className="font-manrope text-[#e0e0e0] text-lg max-w-2xl mb-6">
-                      {watch.description}
-                    </p>
-                    <div className="font-manrope font-semibold text-[#7C7235] text-2xl mb-8">
-                      {watch.price}
+                    {/* Watch Image */}
+                    <div className="relative">
+                      <img
+                        src={watch.image}
+                        alt={watch.name}
+                        className="w-96 h-96 object-contain"
+                      />
+                      {/* Glow Effect */}
+                      <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.25)] to-transparent rounded-full blur-3xl -z-10" />
                     </div>
-                    <button className="bg-[#7c7235] hover:bg-[#8d8340] text-black font-manrope font-medium px-8 py-3 rounded-full transition-colors duration-300">
-                      Découvrir
-                    </button>
                   </motion.div>
-                )}
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+                );
+              })}
+            </AnimatePresence>
 
-        {/* Navigation Arrows */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-colors duration-300"
-          aria-label="Previous watch"
-        >
-          <ChevronLeft className="w-6 h-6 text-white" />
-        </button>
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-colors duration-300"
+              aria-label="Previous watch"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
 
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-colors duration-300"
-          aria-label="Next watch"
-        >
-          <ChevronRight className="w-6 h-6 text-white" />
-        </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-colors duration-300"
+              aria-label="Next watch"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Dots Indicator */}
+      {/* Dots Indicator - centré sous le carousel */}
       <div className="flex justify-center space-x-2 mt-8">
         {watches.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-colors duration-300 ${
               index === currentIndex ? 'bg-[#7C7235]' : 'bg-white/30'
             }`}

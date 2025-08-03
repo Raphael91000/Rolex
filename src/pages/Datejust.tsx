@@ -1,48 +1,51 @@
 import React from 'react';
 import { WatchCarousel } from '../components/WatchCarousel';
 
+// Import des images
+import datejustGreenImg from '../assets/watches/DateJustGreen.png';
+import datejustBlackImg from '../assets/watches/DateJustBlack.png';
+import datejustBleuImg from '../assets/watches/DateJustBleu.png';
+
 export const Datejust = () => {
   const datejustWatches = [
     {
       id: 1,
-      name: 'Datejust 31',
-      description: 'L\'élégance féminine par excellence. Avec son boîtier de 31mm, cette Datejust offre un équilibre parfait entre raffinement et lisibilité. Son cadran nacré capture la lumière avec subtilité.',
+      name: 'Datejust Green',
+      description: 'L\'élégance classique avec un cadran vert olive distinctif. Avec son boîtier de 36mm, cette Datejust offre un équilibre parfait entre raffinement et lisibilité intemporelle.',
       price: 'À partir de 6 850 €',
-      image: '/datejustgreen.png',
+      image: datejustGreenImg,
     },
     {
       id: 2,
-      name: 'Datejust 36',
-      description: 'La taille classique qui a défini les codes de l\'horlogerie moderne. Le boîtier de 36mm convient parfaitement aux poignets fins comme aux plus larges, incarnant l\'intemporalité.',
+      name: 'Datejust Black',
+      description: 'L\'élégance absolue incarnée par un cadran noir profond orné de diamants. Cette pièce d\'exception combine sophistication et prestige dans un design intemporel.',
       price: 'À partir de 7 400 €',
-      image: '/datejustgreen.png',
+      image: datejustBlackImg,
     },
     {
       id: 3,
-      name: 'Datejust 41',
-      description: 'La version contemporaine avec une présence affirmée au poignet. Son boîtier de 41mm offre une lisibilité optimale tout en conservant l\'ADN élégant de la collection.',
+      name: 'Datejust Bleu',
+      description: 'La version contemporaine avec un magnifique cadran bleu qui capture la lumière avec subtilité. Son élégance raffinnée fait de cette montre un véritable symbole de distinction.',
       price: 'À partir de 8 100 €',
-      image: '/datejustgreen.png',
+      image: datejustBleuImg,
     },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-t from-[#0D1F16] to-[#12382B]">
-      <div className="min-h-screen flex flex-col justify-center items-center px-6 pt-32">
-        <div className="text-center mb-16">
-          <h1 className="font-playfair text-5xl md:text-6xl text-[#f3f3f3] mb-6">
-            Collection Datejust
+      <div className="h-screen flex flex-col px-6 pt-12 overflow-hidden">
+        <div className="text-left mt-8 mb-12" style={{ paddingLeft: '1.5rem' }}>
+          <h1 className="font-playfair text-4xl md:text-5xl text-[#f3f3f3] mb-6">
+            Datejust
           </h1>
-          <p className="font-manrope text-[#e0e0e0] text-xl max-w-3xl mx-auto">
-            Créée en 1945, la Datejust fut la première montre-bracelet chronomètre, 
-            automatique et étanche à afficher la date dans un guichet à 3 heures.
-          </p>
         </div>
 
-        <WatchCarousel 
-          watches={datejustWatches} 
-          category="datejust"
-        />
+        <div className="flex-1 flex items-center">
+          <WatchCarousel 
+            watches={datejustWatches} 
+            category="datejust"
+          />
+        </div>
       </div>
     </div>
   );

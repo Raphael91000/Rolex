@@ -1,22 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Footer } from '../components/Footer';
+
+// Import des images
+import submarinerImg from '../assets/watches/Submariner1.png';
+import datejustImg from '../assets/watches/DateJustGreen.png';
+import oysterImg from '../assets/watches/OysterGreen.png';
 
 export const Home = () => {
   const watches = [
     {
       name: 'Submariner',
-      image: '/submariner1-.png',
+      image: submarinerImg,
       path: '/submariner',
     },
     {
       name: 'Datejust',
-      image: '/datejustgreen.png',
+      image: datejustImg,
       path: '/datejust',
     },
     {
       name: 'Oyster',
-      image: '/rolex-1.png',
+      image: oysterImg,
       path: '/oyster',
     },
   ];
@@ -42,18 +48,19 @@ export const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-t from-[#0D1F16] to-[#12382B]">
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center px-6 pt-32">
+      <section className="min-h-screen flex flex-col justify-center px-6 pt-40">
         <motion.h1
-          className="font-playfair text-5xl md:text-6xl text-[#f3f3f3] text-center mb-16 max-w-4xl"
+          className="font-playfair text-4xl md:text-5xl text-[#f3f3f3] text-left mb-16 max-w-4xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          style={{ paddingLeft: '1.5rem' }}
         >
           L'excellence horlogère depuis 1905
         </motion.h1>
 
         {/* Watches Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl w-full mx-auto">
           {watches.map((watch, index) => (
             <motion.div
               key={watch.name}
@@ -64,12 +71,18 @@ export const Home = () => {
             >
               {/* Glow Effect */}
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.25)] to-transparent rounded-full blur-3xl scale-150" />
-                <img
-                  src={watch.image}
-                  alt={watch.name}
-                  className="relative w-64 h-80 object-contain group-hover:scale-105 transition-transform duration-500"
-                />
+                <div className="relative w-64 h-80 flex items-center justify-center">
+                  <img
+                    src={watch.image}
+                    alt={watch.name}
+                    className={`object-contain transition-transform duration-500 ${
+                      watch.name === 'Datejust' ? 'max-w-full max-h-full scale-110' : 
+                      watch.name === 'Submariner' ? 'max-w-full max-h-full scale-125' : 
+                      'max-w-full max-h-full scale-175'
+                    }`}
+                    style={{ objectPosition: 'center center' }}
+                  />
+                </div>
               </div>
 
               <h3 className="font-manrope font-medium text-[#e0e0e0] text-2xl mt-8 mb-6">
@@ -91,7 +104,7 @@ export const Home = () => {
       <section className="min-h-screen flex flex-col justify-center px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="font-playfair text-5xl text-[#f3f3f3] text-center mb-16"
+            className="font-playfair text-4xl text-[#f3f3f3] text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -130,7 +143,7 @@ export const Home = () => {
             >
               <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.15)] to-transparent rounded-full blur-2xl" />
               <img
-                src="/submariner1-.png"
+                src={submarinerImg}
                 alt="Rolex Craftsmanship"
                 className="relative w-full max-w-md mx-auto"
               />
@@ -143,7 +156,7 @@ export const Home = () => {
       <section className="min-h-screen flex flex-col justify-center px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="font-playfair text-5xl text-[#f3f3f3] text-center mb-16"
+            className="font-playfair text-4xl text-[#f3f3f3] text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -162,7 +175,7 @@ export const Home = () => {
             >
               <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.15)] to-transparent rounded-full blur-2xl" />
               <img
-                src="/datejustgreen.png"
+                src={datejustImg}
                 alt="Rolex Heritage"
                 className="relative w-full max-w-md mx-auto"
               />
@@ -197,7 +210,7 @@ export const Home = () => {
       <section className="min-h-screen flex flex-col justify-center px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="font-playfair text-5xl text-[#f3f3f3] text-center mb-8"
+            className="font-playfair text-4xl text-[#f3f3f3] text-center mb-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -245,6 +258,9 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Footer uniquement sur la homepage */}
+      <Footer />
     </div>
   );
 };

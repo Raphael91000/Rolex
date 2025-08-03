@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { Submariner } from './pages/Submariner';
 import { Datejust } from './pages/Datejust';
@@ -20,7 +19,6 @@ function App() {
             <Route path="/oyster" element={<Oyster />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </Router>
   );

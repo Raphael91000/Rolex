@@ -1,6 +1,11 @@
 import React from 'react';
 import { WatchCarousel } from '../components/WatchCarousel';
 
+// Import des images
+import oysterGreenImg from '../assets/watches/OysterGreen.png';
+import oysterYellowImg from '../assets/watches/OysterYellow.png';
+import oysterRedImg from '../assets/watches/OysterRed.png';
+
 export const Oyster = () => {
   const oysterWatches = [
     {
@@ -8,21 +13,21 @@ export const Oyster = () => {
       name: 'Oyster Perpetual Green',
       description: 'L\'essence pure de Rolex dans sa forme la plus épurée. Ce modèle vert emblématique célèbre l\'héritage de la marque avec un cadran d\'une intensité remarquable.',
       price: 'À partir de 5 900 €',
-      image: '/assets/watches/OysterGreen.png',
+      image: oysterGreenImg,
     },
     {
       id: 2,
       name: 'Oyster Perpetual Yellow',
       description: 'Une explosion de couleur qui capture l\'optimisme et la joie de vivre. Ce cadran jaune vibrant transforme chaque instant en moment de bonheur pur.',
       price: 'À partir de 5 900 €',
-      image: '/assets/watches/OysterYellow.png',
+      image: oysterYellowImg,
     },
     {
       id: 3,
       name: 'Oyster Perpetual Red',
       description: 'La passion incarnée dans un garde-temps d\'exception. Ce rouge profond évoque la détermination et l\'audace, valeurs fondamentales de la maison Rolex.',
       price: 'À partir de 5 900 €',
-      image: '/assets/watches/OysterRed.png',
+      image: oysterRedImg,
     },
   ];
 
@@ -43,21 +48,20 @@ export const Oyster = () => {
 
   return (
     <div className={`min-h-screen transition-all duration-1000 ${getGradientClass(currentWatchId)}`}>
-      <div className="min-h-screen flex flex-col justify-center items-center px-6 pt-32">
-        <div className="text-center mb-16">
-          <h1 className="font-playfair text-5xl md:text-6xl text-[#f3f3f3] mb-6">
-            Collection Oyster Perpetual
+      <div className="h-screen flex flex-col px-6 pt-12 overflow-hidden">
+        <div className="text-left mt-8 mb-12" style={{ paddingLeft: '1.5rem' }}>
+          <h1 className="font-playfair text-4xl md:text-5xl text-[#f3f3f3] mb-6">
+            Oyster
           </h1>
-          <p className="font-manrope text-[#e0e0e0] text-xl max-w-3xl mx-auto">
-            L'Oyster Perpetual incarne l'essence même de la montre Rolex. 
-            Pure, fonctionnelle et reconnaissable entre toutes.
-          </p>
         </div>
 
-        <WatchCarousel 
-          watches={oysterWatches} 
-          category="oyster"
-        />
+        <div className="flex-1 flex items-center">
+          <WatchCarousel 
+            watches={oysterWatches} 
+            category="oyster"
+            onWatchChange={setCurrentWatchId}
+          />
+        </div>
       </div>
     </div>
   );

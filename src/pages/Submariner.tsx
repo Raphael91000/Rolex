@@ -1,6 +1,11 @@
 import React from 'react';
 import { WatchCarousel } from '../components/WatchCarousel';
 
+// Import des images
+import submarinerImg from '../assets/watches/Submariner1.png';
+import subBleuTurImg from '../assets/watches/SubBleuTur.png';
+import subDiamondImg from '../assets/watches/SubDiamond.png';
+
 export const Submariner = () => {
   const submarinerWatches = [
     {
@@ -8,21 +13,21 @@ export const Submariner = () => {
       name: 'Submariner Verte',
       description: 'La montre de plongée emblématique avec son cadran vert distinctif et sa lunette unidirectionnelle. Étanche jusqu\'à 300 mètres, elle allie performance technique et élégance intemporelle.',
       price: 'À partir de 8 550 €',
-      image: '/assets/watches/SubBleuTur.png',
+      image: submarinerImg,
     },
     {
       id: 2,
       name: 'Submariner Turquoise',
       description: 'Une variation exclusive avec un cadran turquoise captivant qui évoque les profondeurs océaniques. Mouvement automatique perpétuel avec réserve de marche de 70 heures.',
       price: 'À partir de 9 200 €',
-      image: '/assets/watches/SubBleuTur.png',
+      image: subBleuTurImg,
     },
     {
       id: 3,
       name: 'Submariner Diamond',
       description: 'L\'excellence horlogère sublimée par des diamants sertis avec précision. Cette pièce d\'exception combine la robustesse légendaire de la Submariner avec un raffinement absolu.',
       price: 'À partir de 15 800 €',
-      image: '/assets/watches/SubDiamond.png',
+      image: subDiamondImg,
     },
   ];
 
@@ -43,21 +48,20 @@ export const Submariner = () => {
 
   return (
     <div className={`min-h-screen transition-all duration-1000 ${getGradientClass(currentWatchId)}`}>
-      <div className="min-h-screen flex flex-col justify-center items-center px-6 pt-32">
-        <div className="text-center mb-16">
-          <h1 className="font-playfair text-5xl md:text-6xl text-[#f3f3f3] mb-6">
-            Collection Submariner
+      <div className="h-screen flex flex-col px-6 pt-12 overflow-hidden">
+        <div className="text-left mt-8 mb-12" style={{ paddingLeft: '1.5rem' }}>
+          <h1 className="font-playfair text-4xl md:text-5xl text-[#f3f3f3] mb-6">
+            Submariner
           </h1>
-          <p className="font-manrope text-[#e0e0e0] text-xl max-w-3xl mx-auto">
-            Née de la passion pour l'exploration sous-marine, la Submariner incarne depuis 1953 
-            l'alliance parfaite entre robustesse technique et élégance sportive.
-          </p>
         </div>
 
-        <WatchCarousel 
-          watches={submarinerWatches} 
-          category="submariner"
-        />
+        <div className="flex-1 flex items-center">
+          <WatchCarousel 
+            watches={submarinerWatches} 
+            category="submariner"
+            onWatchChange={setCurrentWatchId}
+          />
+        </div>
       </div>
     </div>
   );

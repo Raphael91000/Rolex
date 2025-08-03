@@ -16,8 +16,8 @@ export const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div className="max-w-7xl mx-auto py-4 flex items-center justify-between" style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
           <img
@@ -56,7 +56,7 @@ export const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-sm">
+        <div className="md:hidden bg-black/90">
           <nav className="px-6 py-4 space-y-4">
             {navItems.map((item) => (
               <Link
