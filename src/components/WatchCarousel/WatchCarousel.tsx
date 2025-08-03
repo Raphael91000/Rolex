@@ -110,12 +110,13 @@ export const WatchCarousel: React.FC<WatchCarouselProps> = ({ watches, category,
                           category === 'submariner' && watch.id === 1 ? 'w-96 h-96' : // Submariner verte
                           category === 'submariner' && watch.id === 3 ? 'w-80 h-80' : // Submariner diamond grossie
                           category === 'oyster' && (watch.id === 1 || watch.id === 3) ? 'w-96 h-96' : // Oyster verte et rouge
-                          category === 'datejust' && watch.id === 2 ? 'w-[400px] h-[400px]' : // Datejust noire plus grande
-                          category === 'datejust' && (watch.id === 1 || watch.id === 3) ? 'w-72 h-72' : // Datejust verte et bleue plus petites
+                          category === 'datejust' && watch.id === 2 ? 'w-[600px] h-[400px]' : // Datejust noire plus grande
+                          category === 'datejust' && (watch.id === 1 || watch.id === 3) ? 'w-80 h-64' : // Datejust verte et bleue plus petites
                           'w-80 h-80' // Taille standard
                         } ${
                           category === 'submariner' && watch.id === 3 ? 'ml-6 -mt-7' : // Diamond décalée à droite et remontée encore plus
                           category === 'oyster' && watch.id === 1 ? 'mt-3' : // Oyster verte descendue
+                          category === 'datejust' && watch.id === 2 ? '-mt-10' :
                           ''
                         }`}
                       />
