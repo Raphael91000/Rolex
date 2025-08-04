@@ -125,9 +125,9 @@ export const Home = () => {
           </motion.h2>
 
           {/* Contenu : Texte + Image aligné sur les revendeurs */}
-          <div className="flex items-center justify-between">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Texte à gauche */}
-            <div className="flex-1 max-w-2xl">
+            <div>
               <motion.div
                 className="text-left"
                 initial={{ opacity: 0, y: 30 }}
@@ -147,7 +147,7 @@ export const Home = () => {
             </div>
 
             {/* Image à droite */}
-            <div className="hidden lg:flex flex-1 justify-center items-center ml-12">
+            <div className="flex justify-center lg:justify-end">
               <motion.div
                 className="relative w-80 h-80 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -182,10 +182,29 @@ export const Home = () => {
             Un héritage d'exception
           </motion.h2>
 
-          {/* Contenu : Texte + Image aligné sur les revendeurs */}
-          <div className="flex items-center justify-between">
-            {/* Texte à gauche */}
-            <div className="flex-1 max-w-2xl">
+          {/* Contenu : Image + Texte (inversé) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image à gauche */}
+            <div className="flex justify-center lg:justify-start">
+              <motion.div
+                className="relative rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={montreImg}
+                  alt="Montre Rolex"
+                  className="w-80 h-80 object-contain rounded-2xl"
+                />
+                {/* Effet de glow */}
+                <div className="absolute inset-0 bg-gradient-radial from-[rgba(124,114,53,0.15)] to-transparent rounded-2xl blur-3xl -z-10" />
+              </motion.div>
+            </div>
+
+            {/* Texte à droite */}
+            <div>
               <motion.div
                 className="text-left"
                 initial={{ opacity: 0, y: 30 }}
@@ -204,25 +223,6 @@ export const Home = () => {
                 </p>
                 {/* Barre dorée */}
                 <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
-              </motion.div>
-            </div>
-
-            {/* Image à droite */}
-            <div className="hidden lg:flex flex-1 justify-center items-center ml-12">
-              <motion.div
-                className="relative rounded-2xl overflow-hidden"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <img
-                  src={montreImg}
-                  alt="Montre Rolex"
-                  className="w-80 h-80 object-contain rounded-2xl"
-                />
-                {/* Effet de glow */}
-                <div className="absolute inset-0 bg-gradient-radial from-[rgba(124,114,53,0.15)] to-transparent rounded-2xl blur-3xl -z-10" />
               </motion.div>
             </div>
           </div>

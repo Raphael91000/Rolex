@@ -26,7 +26,7 @@ export const Navbar = () => {
   const navItems = [
     { name: 'Accueil', path: '/', anchor: '#accueil' },
     { name: 'Savoir-faire', path: '/', anchor: '#savoir-faire' },
-    { name: 'Héritage', path: '/', anchor: '#savoir-faire' },
+    { name: 'Héritage', path: '/', anchor: '#heritage' },
     { name: 'Revendeur', path: '/', anchor: '#revendeur' },
   ];
 
