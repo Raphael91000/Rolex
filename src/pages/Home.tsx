@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Footer } from '../components/Footer';
 
-// Import des images
+// Import des images des montres
 import submarinerImg from '../assets/watches/Submariner1.png';
 import datejustImg from '../assets/watches/DateJustGreen.png';
 import oysterImg from '../assets/watches/OysterGreen.png';
@@ -48,9 +48,9 @@ export const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-t from-[#0D1F16] to-[#12382B]">
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center px-6 pt-40">
+      <section id="accueil" className="min-h-screen flex flex-col justify-center px-6 pt-20">
         <motion.h1
-          className="font-playfair text-4xl md:text-5xl text-[#f3f3f3] text-left mb-16 max-w-4xl"
+          className="font-playfair text-4xl text-[#f3f3f3] text-left mb-16 max-w-4xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -69,23 +69,24 @@ export const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
             >
-              {/* Glow Effect */}
+              {/* Container uniforme pour toutes les montres */}
               <div className="relative">
-                <div className="relative w-64 h-80 flex items-center justify-center">
+                <div className="relative w-80 h-80 flex items-center justify-center">
                   <img
                     src={watch.image}
                     alt={watch.name}
-                    className={`object-contain transition-transform duration-500 ${
-                      watch.name === 'Datejust' ? 'max-w-full max-h-full scale-110' : 
-                      watch.name === 'Submariner' ? 'max-w-full max-h-full scale-125' : 
-                      'max-w-full max-h-full scale-175'
+                    className={`object-contain ${
+                      watch.name === 'Datejust' ? 'w-56 h-56' : 
+                      watch.name === 'Oyster' ? 'w-[340px] h-[340px] mt-3' :
+                      'w-80 h-80'
                     }`}
-                    style={{ objectPosition: 'center center' }}
                   />
+                  {/* Glow Effect uniforme */}
+                  <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.25)] to-transparent rounded-full blur-3xl -z-10" />
                 </div>
               </div>
 
-              <h3 className="font-manrope font-medium text-[#e0e0e0] text-2xl mt-8 mb-6">
+              <h3 className="font-manrope font-medium text-[#e0e0e0] text-2xl mt-4 mb-6">
                 {watch.name}
               </h3>
 
@@ -101,113 +102,78 @@ export const Home = () => {
       </section>
 
       {/* Savoir-faire Section */}
-      <section className="min-h-screen flex flex-col justify-center px-6 py-20">
-        <div className="max-w-6xl mx-auto">
+      <section id="savoir-faire" className="flex flex-col justify-center px-6 py-10">
+        <div className="max-w-6xl mx-auto" style={{ marginLeft: '10px' }}>
           <motion.h2
-            className="font-playfair text-4xl text-[#f3f3f3] text-center mb-16"
+            className="font-playfair text-4xl text-[#f3f3f3] text-left mb-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            style={{ paddingLeft: '1.5rem' }}
           >
             Notre savoir-faire
           </motion.h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="font-manrope font-semibold text-[#e0e0e0] text-2xl mb-6">
-                L'excellence à chaque étape
-              </h3>
-              <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed">
-                Chez Rolex, chaque détail compte. De la sélection des matériaux les
-                plus nobles à l'assemblage méticuleux des composants, nos
-                horlogers perpétuent un savoir-faire transmis depuis plus d'un
-                siècle. Les mouvements sont conçus, fabriqués et testés dans nos
-                propres ateliers selon les standards les plus stricts de précision
-                et de fiabilité. Chaque montre est soumise à une série de contrôles
-                rigoureux pour garantir des performances exceptionnelles.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.15)] to-transparent rounded-full blur-2xl" />
-              <img
-                src={submarinerImg}
-                alt="Rolex Craftsmanship"
-                className="relative w-full max-w-md mx-auto"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Heritage Section */}
-      <section className="min-h-screen flex flex-col justify-center px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            className="font-playfair text-4xl text-[#f3f3f3] text-center mb-16"
+          <motion.div
+            className="text-left max-w-2xl"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            style={{ paddingLeft: '1.5rem' }}
+          >
+            <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
+              L'excellence à chaque étapes
+            </h3>
+            <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
+              Chez Rolex, chaque détail compte. De la sélection des matériaux les plus nobles à l'assemblage méticuleux des composants, nos horlogers perpétuent un savoir-faire transmis depuis plus d'un siècle. Les mouvements sont conçus, fabriqués et testés dans nos propres ateliers selon les standards les plus stricts de précision et de fiabilité. Chaque montre est soumise à une série de contrôles rigoureux pour garantir des performances exceptionnelles.
+            </p>
+            {/* Barre dorée */}
+            <div className="w-96 h-0.5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B]"></div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Heritage Section */}
+      <section id="heritage" className="flex flex-col justify-center px-6 py-10">
+        <div className="max-w-6xl mx-auto" style={{ marginLeft: '10px' }}>
+          <motion.h2
+            className="font-playfair text-4xl text-[#f3f3f3] text-left mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ paddingLeft: '1.5rem' }}
           >
             Un héritage d'exception
           </motion.h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              className="relative order-2 lg:order-1"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="absolute inset-0 bg-gradient-radial from-[rgba(46,107,78,0.15)] to-transparent rounded-full blur-2xl" />
-              <img
-                src={datejustImg}
-                alt="Rolex Heritage"
-                className="relative w-full max-w-md mx-auto"
-              />
-            </motion.div>
-
-            <motion.div
-              className="order-1 lg:order-2"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="font-manrope font-semibold text-[#e0e0e0] text-2xl mb-6">
-                120 ans d'innovation horlogère
-              </h3>
-              <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed">
-                Depuis sa création en 1905, Rolex incarne l'excellence, la
-                précision et l'innovation. Des premières montres étanches aux
-                modèles emblématiques d'aujourd'hui, la marque a marqué
-                chaque époque par son audace et son savoir-faire.
-                <br /><br />
-                Rolex a accompagné les plus grands explorateurs, navigateurs et
-                sportifs dans leurs exploits, devenant un véritable symbole de
-                prestige à travers le monde.
-              </p>
-            </motion.div>
-          </div>
+          <motion.div
+            className="text-left max-w-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ paddingLeft: '1.5rem' }}
+          >
+            <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
+              120 ans d'innovation horlogère
+            </h3>
+            <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-3">
+              Depuis sa création en 1905, Rolex incarne l'excellence, la précision et l'innovation. Des premières montres étanches aux modèles emblématiques d'aujourd'hui, la marque a marqué chaque époque par son audace et son savoir-faire.
+            </p>
+            <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
+              Rolex a accompagné les plus grands explorateurs, navigateurs et sportifs dans leurs exploits, devenant un véritable symbole de prestige à travers le monde.
+            </p>
+            {/* Barre dorée */}
+            <div className="w-96 h-0.5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B]"></div>
+          </motion.div>
         </div>
       </section>
 
       {/* Retailers Section */}
-      <section className="min-h-screen flex flex-col justify-center px-6 py-20">
+      <section id="revendeur" className="min-h-screen flex flex-col justify-center px-6 py-20">
         <div className="max-w-6xl mx-auto">
           <motion.h2
             className="font-playfair text-4xl text-[#f3f3f3] text-center mb-8"

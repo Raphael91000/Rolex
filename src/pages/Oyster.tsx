@@ -1,10 +1,15 @@
 import React from 'react';
 import { WatchCarousel } from '../components/WatchCarousel';
 
-// Import des images
+// Import des images des montres
 import oysterGreenImg from '../assets/watches/OysterGreen.png';
 import oysterYellowImg from '../assets/watches/OysterYellow.png';
 import oysterRedImg from '../assets/watches/OysterRed.png';
+
+// Import des images de background
+import oysterGreenBg from '../assets/watches/OysterGreenBg.png';
+import oysterYellowBg from '../assets/watches/OysterYellow.png';
+import oysterRedBg from '../assets/watches/OysterRedBg.png';
 
 export const Oyster = () => {
   const oysterWatches = [
@@ -39,23 +44,48 @@ export const Oyster = () => {
     return 'bg-gradient-to-t from-[#0D1F16] to-[#12382B]';
   };
 
+  const getBackgroundImage = (watchId: number) => {
+    switch (watchId) {
+      case 1:
+        return oysterGreenBg;
+      case 2:
+        return oysterYellowBg;
+      case 3:
+        return oysterRedBg;
+      default:
+        return oysterGreenBg;
+    }
+  };
+
   const [currentWatchId, setCurrentWatchId] = React.useState(1);
 
   return (
-    <div className={`min-h-screen transition-all duration-1000 ${getGradientClass(currentWatchId)}`}>
-      <div className="h-screen flex flex-col px-6 pt-12 overflow-hidden">
-        <div className="text-left mt-16 mb-8" style={{ paddingLeft: '1.5rem' }}>
-          <h1 className="font-playfair text-3xl md:text-4xl text-[#f3f3f3] mb-6">
-            Oyster
-          </h1>
-        </div>
+    <div className={`min-h-screen transition-all duration-1000 ${getGradientClass(currentWatchId)} relative`}>
+      {/* Background image avec très faible opacité */}
+      <div 
+        className="absolute inset-0 bg-center bg-cover bg-no-repeat opacity-5 transition-all duration-1000"
+        style={{ 
+          backgroundImage: `url(${getBackgroundImage(currentWatchId)})`,
+          backgroundSize: 'cover'
+        }}
+      ></div>
+      
+      {/* Contenu au-dessus du background */}
+      <div className="relative z-10">
+        <div className="h-screen flex flex-col px-6 pt-12 overflow-hidden">
+          <div className="text-left mt-16 mb-8" style={{ paddingLeft: '1.5rem' }}>
+            <h1 className="font-playfair text-3xl md:text-4xl text-[#f3f3f3] mb-6">
+              Oyster
+            </h1>
+          </div>
 
-        <div className="flex-1 flex items-center">
-          <WatchCarousel 
-            watches={oysterWatches} 
-            category="oyster"
-            onWatchChange={setCurrentWatchId}
-          />
+          <div className="flex-1 flex items-center">
+            <WatchCarousel 
+              watches={oysterWatches} 
+              category="oyster"
+              onWatchChange={setCurrentWatchId}
+            />
+          </div>
         </div>
       </div>
     </div>
