@@ -48,26 +48,26 @@ export const Footer = () => {
           <footer className="mt-20 border-t border-[#7C7235]">
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Website Link */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-[#7d7d7d]/20 rounded-full px-8 py-3 flex items-center space-x-4">
-            <span className="font-manrope font-semibold text-[#e0e0e0] text-xl">
+        <div className="flex justify-center mb-8 md:mb-12">
+          <div className="bg-[#7d7d7d]/20 rounded-full px-4 py-2 md:px-8 md:py-3 flex items-center space-x-2 md:space-x-4">
+            <span className="font-manrope font-semibold text-[#e0e0e0] text-base md:text-xl">
               www.rolexfrance.fr
             </span>
             <img
               src={logoR}
               alt="Rolex R"
-              className="w-8 h-8 object-contain"
+              className="w-6 h-6 md:w-8 md:h-8 object-contain"
             />
           </div>
         </div>
 
         {/* Navigation avec hover */}
-        <nav className="flex justify-center space-x-12 mb-8">
+        <nav className="flex flex-wrap justify-center gap-4 md:gap-0 md:space-x-12 mb-6 md:mb-8 px-4">
           {footerNavItems.map((item) => (
             <button
               key={item.name}
               onClick={() => handleNavClick(item.path, item.anchor)}
-              className="font-manrope font-medium text-[#e6e6e6] hover:text-[#7C7235] transition-colors duration-300"
+              className="font-manrope font-medium text-[#e6e6e6] hover:text-[#7C7235] transition-colors duration-300 text-sm md:text-base"
             >
               {item.name}
             </button>
@@ -75,11 +75,11 @@ export const Footer = () => {
         </nav>
 
         {/* Legal Information */}
-        <div className="flex justify-center space-x-8 text-center">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-0 md:space-x-8 text-center px-4">
           {legalItems.map((item, index) => (
             <span
               key={index}
-              className="font-manrope font-medium text-[#e6e6e6] text-sm"
+              className="font-manrope font-medium text-[#e6e6e6] text-xs md:text-sm"
             >
               {item}
             </span>

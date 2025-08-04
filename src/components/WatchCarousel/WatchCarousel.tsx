@@ -132,7 +132,7 @@ export const WatchCarousel: React.FC<WatchCarouselProps> = ({ watches, category,
             </div>
 
             {/* Navigation et nom de la montre */}
-            <div className="flex items-center justify-center -mt-16 space-x-8 relative z-10">
+            <div className="flex items-center justify-center -mt-16 space-x-2 relative z-10">
               <button
                 onClick={prevSlide}
                 className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-colors duration-300 relative z-20"
@@ -225,7 +225,9 @@ export const WatchCarousel: React.FC<WatchCarouselProps> = ({ watches, category,
                   exit={{ x: -300, opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
-                  <div className="relative flex items-center justify-center">
+                  <div className={`relative flex items-center justify-center ${
+                    category === 'submariner' && watches[currentIndex].id === 3 ? 'ml-6' : ''
+                  }`}>
                     <img
                       src={watches[currentIndex].image}
                       alt={watches[currentIndex].name}

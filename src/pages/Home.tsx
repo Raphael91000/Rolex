@@ -212,8 +212,8 @@ export const Home = () => {
             Notre savoir-faire
           </motion.h2>
 
-          {/* Contenu : Texte + Image aligné sur les revendeurs */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Texte à gauche */}
             <div>
               <motion.div
@@ -253,6 +253,44 @@ export const Home = () => {
               </motion.div>
             </div>
           </div>
+
+          {/* Mobile Layout - Image d'abord */}
+          <div className="block lg:hidden space-y-8">
+            {/* Image en premier sur mobile */}
+            <div className="flex justify-center">
+              <motion.div
+                className="relative w-64 h-64 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={horlogeImg}
+                  alt="Horloge Rolex"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              </motion.div>
+            </div>
+
+            {/* Texte en dessous sur mobile */}
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-manrope font-semibold text-[#e0e0e0] text-lg mb-4">
+                L'excellence à chaque étapes
+              </h3>
+              <p className="font-manrope text-[#e0e0e0] text-sm leading-relaxed mb-6 px-4">
+                Chez Rolex, chaque détail compte. De la sélection des matériaux les plus nobles à l'assemblage méticuleux des composants, nos horlogers perpétuent un savoir-faire transmis depuis plus d'un siècle. Les mouvements sont conçus, fabriqués et testés dans nos propres ateliers selon les standards les plus stricts de précision et de fiabilité. Chaque montre est soumise à une série de contrôles rigoureux pour garantir des performances exceptionnelles.
+              </p>
+              {/* Barre dorée centrée */}
+              <div className="w-48 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340] mx-auto"></div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -270,8 +308,8 @@ export const Home = () => {
             Un héritage d'exception
           </motion.h2>
 
-          {/* Contenu : Image + Texte (inversé) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image à gauche */}
             <div className="flex justify-center lg:justify-start">
               <motion.div
@@ -313,6 +351,47 @@ export const Home = () => {
                 <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
               </motion.div>
             </div>
+          </div>
+
+          {/* Mobile Layout - Image d'abord */}
+          <div className="block lg:hidden space-y-8">
+            {/* Image en premier sur mobile */}
+            <div className="flex justify-center">
+              <motion.div
+                className="relative w-64 h-64 rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={montreImg}
+                  alt="Montre Rolex"
+                  className="w-full h-full object-contain rounded-2xl"
+                />
+              </motion.div>
+            </div>
+
+            {/* Texte en dessous sur mobile */}
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="font-manrope font-semibold text-[#e0e0e0] text-lg mb-4">
+                120 ans d'innovation horlogère
+              </h3>
+              <p className="font-manrope text-[#e0e0e0] text-sm leading-relaxed mb-3 px-4">
+                Depuis sa création en 1905, Rolex incarne l'excellence, la précision et l'innovation. Des premières montres étanches aux modèles emblématiques d'aujourd'hui, la marque a marqué chaque époque par son audace et son savoir-faire.
+              </p>
+              <p className="font-manrope text-[#e0e0e0] text-sm leading-relaxed mb-6 px-4">
+                Rolex a accompagné les plus grands explorateurs, navigateurs et sportifs dans leurs exploits, devenant un véritable symbole de prestige à travers le monde.
+              </p>
+              {/* Barre dorée centrée */}
+              <div className="w-48 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340] mx-auto"></div>
+            </motion.div>
           </div>
         </div>
       </section>
