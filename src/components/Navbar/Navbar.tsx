@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,8 +9,19 @@ import logoRolex from '../../assets/watches/LogoRolex.png';
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [curtainStage, setCurtainStage] = useState<'idle' | 'entering' | 'exiting'>('idle');
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Détecter le scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { name: 'Accueil', path: '/', anchor: '#accueil' },
@@ -136,14 +147,21 @@ export const Navbar = () => {
       <header className="fixed top-0 left-0 right-0 z-50">
         <div className="max-w-7xl mx-auto py-8" style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
           <div className="flex items-center justify-between">
-            {/* BY R. dans le coin gauche */}
-            <div className="flex-shrink-0 -ml-16">
+            {/* BY R. dans le coin gauche - disparaît au scroll */}
+            <div className={`flex-shrink-0 -ml-16 transition-opacity duration-300 ${
+              isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}>
               <span className="font-manrope font-medium text-white text-lg">BY </span>
               <span className="font-manrope font-medium text-[#D4AF37] text-lg">R.</span>
             </div>
 
-            {/* Logo centré */}
-            <Link to="/" className="absolute left-1/2 transform -translate-x-1/2">
+            {/* Logo centré - disparaît au scroll */}
+            <Link 
+              to="/" 
+              className={`absolute left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${
+                isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              }`}
+            >
               <img
                 src={logoRolex}
                 alt="Rolex Logo"
