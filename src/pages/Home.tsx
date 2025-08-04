@@ -8,6 +8,11 @@ import submarinerImg from '../assets/watches/Submariner1.png';
 import datejustImg from '../assets/watches/DateJustGreen.png';
 import oysterImg from '../assets/watches/OysterGreen.png';
 
+// Import des images des revendeurs
+import rolexParisImg from '../assets/watches/RolexParis.png';
+import rolexDubaiImg from '../assets/watches/RolexDubai.png';
+import rolexGeneveImg from '../assets/watches/RolexGeneve.webp';
+
 export const Home = () => {
   const watches = [
     {
@@ -31,17 +36,17 @@ export const Home = () => {
     {
       name: 'Rolex Paris 75016',
       address: 'Avenue des champs Élysées',
-      image: '/rolexoaris.png',
+      image: rolexParisImg,
     },
     {
       name: 'Rolex Dubai',
       address: 'Dubai Mall Center',
-      image: '/rolex-dubai.png',
+      image: rolexDubaiImg,
     },
     {
       name: 'Rolex Genève',
       address: 'Rue de la Fontaine',
-      image: '/rolexgeneve.png',
+      image: rolexGeneveImg,
     },
   ];
 
@@ -195,7 +200,7 @@ export const Home = () => {
             Des partenaires de confiance, partout dans le monde.
           </motion.h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {retailers.map((retailer, index) => (
               <motion.div
                 key={retailer.name}

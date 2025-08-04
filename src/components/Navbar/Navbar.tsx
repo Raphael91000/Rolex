@@ -156,8 +156,8 @@ export const Navbar = () => {
             </div>
 
             {/* Logo centré - disparaît au scroll */}
-            <Link 
-              to="/" 
+            <button
+              onClick={() => handleNavClick('/', '#accueil')}
               className={`absolute left-1/2 transform -translate-x-1/2 transition-opacity duration-300 ${
                 isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
               }`}
@@ -167,7 +167,7 @@ export const Navbar = () => {
                 alt="Rolex Logo"
                 className="h-24 w-auto object-contain"
               />
-            </Link>
+            </button>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
