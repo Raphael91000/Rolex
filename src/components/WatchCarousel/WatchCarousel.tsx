@@ -132,7 +132,7 @@ export const WatchCarousel: React.FC<WatchCarouselProps> = ({ watches, category,
             </div>
 
             {/* Navigation et nom de la montre */}
-            <div className="flex items-center justify-center -mt-16 space-x-2 relative z-10">
+            <div className="flex items-center justify-center -mt-16 space-x-8 relative z-10">
               <button
                 onClick={prevSlide}
                 className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-colors duration-300 relative z-20"
