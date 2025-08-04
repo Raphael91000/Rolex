@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Footer } from '../components/Footer';
+
+// Enregistrer le plugin GSAP
+gsap.registerPlugin(ScrollTrigger);
 
 // Import des images des montres
 import submarinerImg from '../assets/watches/Submariner1.png';
@@ -11,9 +16,58 @@ import oysterImg from '../assets/watches/OysterGreen.png';
 // Import des images des revendeurs
 import rolexParisImg from '../assets/watches/RolexParis.png';
 import rolexDubaiImg from '../assets/watches/RolexDubai.png';
-import rolexGeneveImg from '../assets/watches/RolexGeneve.webp';
+import RolexGeneveImg from '../assets/watches/RolexGeneve.webp';
 
 export const Home = () => {
+  const scrollImageRef = useRef<HTMLImageElement>(null);
+  const scrollSectionRef = useRef<HTMLDivElement>(null);
+
+  // Générer les chemins des images (de Frame95 à Frame1)
+  const generateImagePaths = () => {
+    const paths = [];
+    for (let i = 95; i >= 1; i--) {
+      paths.push(`/src/rolex-assembly/Frame${i}.gif`);
+    }
+    return paths;
+  };
+
+  const imagePaths = generateImagePaths();
+
+  useEffect(() => {
+    if (!scrollImageRef.current || !scrollSectionRef.current) return;
+
+    // Précharger les images
+    const preloadImages = () => {
+      imagePaths.forEach(path => {
+        const img = new Image();
+        img.src = path;
+      });
+    };
+    preloadImages();
+
+    // Animation GSAP avec ScrollTrigger
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scrollSectionRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const frameIndex = Math.floor(progress * (imagePaths.length - 1));
+          const clampedIndex = Math.max(0, Math.min(frameIndex, imagePaths.length - 1));
+          
+          if (scrollImageRef.current) {
+            scrollImageRef.current.src = imagePaths[clampedIndex];
+          }
+        }
+      }
+    });
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
   const watches = [
     {
       name: 'Submariner',
@@ -46,7 +100,7 @@ export const Home = () => {
     {
       name: 'Rolex Genève',
       address: 'Rue de la Fontaine',
-      image: rolexGeneveImg,
+      image: RolexGeneveImg,
     },
   ];
 
@@ -106,37 +160,45 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Savoir-faire Section */}
-      <section id="savoir-faire" className="flex flex-col justify-center px-6 py-10">
-        <div className="max-w-6xl mx-auto" style={{ marginLeft: '10px' }}>
-          <motion.h2
-            className="font-playfair text-4xl text-[#f3f3f3] text-left mb-8"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            style={{ paddingLeft: '1.5rem' }}
-          >
-            Notre savoir-faire
-          </motion.h2>
+      {/* Savoir-faire Section avec animation scroll */}
+      <section ref={scrollSectionRef} id="savoir-faire" className="relative min-h-[200vh]">
+        {/* Image fixe pour l'animation scroll */}
+        <div className="sticky top-0 h-screen flex items-center justify-center bg-gradient-to-t from-[#0D1F16] to-[#12382B]">
+          <div className="flex items-center justify-between w-full max-w-6xl mx-auto px-6">
+            {/* Contenu texte à gauche */}
+            <motion.div
+              className="flex-1 max-w-2xl"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="font-playfair text-4xl text-[#f3f3f3] mb-8">
+                Notre savoir-faire
+              </h2>
+              <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
+                L'excellence à chaque étapes
+              </h3>
+              <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
+                Chez Rolex, chaque détail compte. De la sélection des matériaux les plus nobles à l'assemblage méticuleux des composants, nos horlogers perpétuent un savoir-faire transmis depuis plus d'un siècle. Les mouvements sont conçus, fabriqués et testés dans nos propres ateliers selon les standards les plus stricts de précision et de fiabilité. Chaque montre est soumise à une série de contrôles rigoureux pour garantir des performances exceptionnelles.
+              </p>
+              <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
+            </motion.div>
 
-          <motion.div
-            className="text-left max-w-2xl"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            style={{ paddingLeft: '1.5rem' }}
-          >
-            <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
-              L'excellence à chaque étapes
-            </h3>
-            <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
-              Chez Rolex, chaque détail compte. De la sélection des matériaux les plus nobles à l'assemblage méticuleux des composants, nos horlogers perpétuent un savoir-faire transmis depuis plus d'un siècle. Les mouvements sont conçus, fabriqués et testés dans nos propres ateliers selon les standards les plus stricts de précision et de fiabilité. Chaque montre est soumise à une série de contrôles rigoureux pour garantir des performances exceptionnelles.
-            </p>
-            {/* Barre dorée - couleur corrigée */}
-            <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
-          </motion.div>
+            {/* Animation Rolex à droite */}
+            <div className="flex-1 flex justify-center items-center ml-12">
+              <div className="relative">
+                <img
+                  ref={scrollImageRef}
+                  src="/src/rolex-assembly/Frame95.gif"
+                  alt="Rolex Assembly Animation"
+                  className="w-80 h-80 object-contain"
+                />
+                {/* Effet de glow */}
+                <div className="absolute inset-0 bg-gradient-radial from-[rgba(124,114,53,0.15)] to-transparent rounded-full blur-2xl -z-10" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
