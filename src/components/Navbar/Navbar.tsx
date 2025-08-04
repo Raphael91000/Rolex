@@ -19,7 +19,13 @@ export const Navbar = () => {
     { name: 'Revendeur', path: '/', anchor: '#revendeur' },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string, name: string) => {
+    // Seul "Accueil" est actif sur la page d'accueil
+    if (location.pathname === '/') {
+      return name === 'Accueil';
+    }
+    return location.pathname === path;
+  };
   
   // Pages de montres qui nécessitent l'animation
   const isWatchPage = ['/submariner', '/datejust', '/oyster'].includes(location.pathname);
@@ -151,11 +157,7 @@ export const Navbar = () => {
                 <button
                   key={item.name}
                   onClick={() => handleNavClick(item.path, item.anchor)}
-                  className={`font-manrope font-medium text-base transition-colors duration-300 ${
-                    isActive(item.path)
-                      ? 'text-[#7C7235]'
-                      : 'text-[#e6e6e6] hover:text-[#7C7235]'
-                  }`}
+                  className="font-manrope font-medium text-base transition-colors duration-300 text-white hover:text-[#7C7235]"
                 >
                   {item.name}
                 </button>
@@ -163,11 +165,11 @@ export const Navbar = () => {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-white p-2"
-              aria-label="Toggle menu"
-            >
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden text-white p-2"
+                aria-label="Toggle menu"
+              >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -186,8 +188,8 @@ export const Navbar = () => {
                   }}
                   className={`block w-full text-left font-manrope font-medium text-base transition-colors duration-300 ${
                     isActive(item.path)
-                      ? 'text-[#7C7235]'
-                      : 'text-[#e6e6e6] hover:text-[#7C7235]'
+                      ? 'text-[#D4AF37]'
+                      : 'text-white hover:text-[#D4AF37]'
                   }`}
                 >
                   {item.name}

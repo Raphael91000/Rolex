@@ -129,8 +129,8 @@ export const Home = () => {
             <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
               Chez Rolex, chaque détail compte. De la sélection des matériaux les plus nobles à l'assemblage méticuleux des composants, nos horlogers perpétuent un savoir-faire transmis depuis plus d'un siècle. Les mouvements sont conçus, fabriqués et testés dans nos propres ateliers selon les standards les plus stricts de précision et de fiabilité. Chaque montre est soumise à une série de contrôles rigoureux pour garantir des performances exceptionnelles.
             </p>
-            {/* Barre dorée */}
-            <div className="w-96 h-0.5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B]"></div>
+            {/* Barre dorée - couleur corrigée */}
+            <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
           </motion.div>
         </div>
       </section>
@@ -166,8 +166,8 @@ export const Home = () => {
             <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
               Rolex a accompagné les plus grands explorateurs, navigateurs et sportifs dans leurs exploits, devenant un véritable symbole de prestige à travers le monde.
             </p>
-            {/* Barre dorée */}
-            <div className="w-96 h-0.5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B]"></div>
+            {/* Barre dorée - couleur corrigée */}
+            <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
           </motion.div>
         </div>
       </section>
