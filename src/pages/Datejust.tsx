@@ -56,9 +56,9 @@ export const Datejust = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-t from-[#0D1F16] to-[#12382B] relative">
-      {/* Background image avec très faible opacité */}
+      {/* Background image - Desktop uniquement */}
       <div 
-        className="absolute inset-0 bg-center bg-cover bg-no-repeat opacity-5 transition-all duration-1000"
+        className="hidden md:block absolute inset-0 bg-center bg-cover bg-no-repeat opacity-5 transition-all duration-1000"
         style={{ 
           backgroundImage: `url(${getBackgroundImage(currentWatchId)})`,
           backgroundSize: 'cover'
