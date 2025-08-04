@@ -1,73 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Footer } from '../components/Footer';
-
-// Enregistrer le plugin GSAP
-gsap.registerPlugin(ScrollTrigger);
 
 // Import des images des montres
 import submarinerImg from '../assets/watches/Submariner1.png';
 import datejustImg from '../assets/watches/DateJustGreen.png';
 import oysterImg from '../assets/watches/OysterGreen.png';
 
+// Import des images pour les sections
+import horlogeImg from '../assets/watches/Horloge.png';
+import montreImg from '../assets/watches/Montre.png';
+
 // Import des images des revendeurs
 import rolexParisImg from '../assets/watches/RolexParis.png';
 import rolexDubaiImg from '../assets/watches/RolexDubai.png';
-import RolexGeneveImg from '../assets/watches/RolexGeneve.png';
+import rolexGeneveImg from '../assets/watches/RolexGeneve.png';
 
 export const Home = () => {
-  const scrollImageRef = useRef<HTMLImageElement>(null);
-  const scrollSectionRef = useRef<HTMLDivElement>(null);
-
-  // Générer les chemins des images (de Frame95 à Frame1)
-  const generateImagePaths = () => {
-    const paths = [];
-    for (let i = 95; i >= 1; i--) {
-      paths.push(`/src/rolex-assembly/Frame${i}.gif`);
-    }
-    return paths;
-  };
-
-  const imagePaths = generateImagePaths();
-
-  useEffect(() => {
-    if (!scrollImageRef.current || !scrollSectionRef.current) return;
-
-    // Précharger les images
-    const preloadImages = () => {
-      imagePaths.forEach(path => {
-        const img = new Image();
-        img.src = path;
-      });
-    };
-    preloadImages();
-
-    // Animation GSAP avec ScrollTrigger
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: scrollSectionRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const frameIndex = Math.floor(progress * (imagePaths.length - 1));
-          const clampedIndex = Math.max(0, Math.min(frameIndex, imagePaths.length - 1));
-          
-          if (scrollImageRef.current) {
-            scrollImageRef.current.src = imagePaths[clampedIndex];
-          }
-        }
-      }
-    });
-
-    return () => {
-      tl.kill();
-    };
-  }, []);
   const watches = [
     {
       name: 'Submariner',
@@ -100,7 +50,7 @@ export const Home = () => {
     {
       name: 'Rolex Genève',
       address: 'Rue de la Fontaine',
-      image: RolexGeneveImg,
+      image: rolexGeneveImg,
     },
   ];
 
@@ -160,43 +110,59 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Savoir-faire Section avec animation scroll */}
-      <section ref={scrollSectionRef} id="savoir-faire" className="relative min-h-[200vh]">
-        {/* Image fixe pour l'animation scroll */}
-        <div className="sticky top-0 h-screen flex items-center justify-center bg-gradient-to-t from-[#0D1F16] to-[#12382B]">
-          <div className="flex items-center justify-between w-full max-w-6xl mx-auto px-6">
-            {/* Contenu texte à gauche */}
-            <motion.div
-              className="flex-1 max-w-2xl"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-playfair text-4xl text-[#f3f3f3] mb-8">
-                Notre savoir-faire
-              </h2>
-              <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
-                L'excellence à chaque étapes
-              </h3>
-              <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
-                Chez Rolex, chaque détail compte. De la sélection des matériaux les plus nobles à l'assemblage méticuleux des composants, nos horlogers perpétuent un savoir-faire transmis depuis plus d'un siècle. Les mouvements sont conçus, fabriqués et testés dans nos propres ateliers selon les standards les plus stricts de précision et de fiabilité. Chaque montre est soumise à une série de contrôles rigoureux pour garantir des performances exceptionnelles.
-              </p>
-              <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
-            </motion.div>
+      {/* Savoir-faire Section */}
+      <section id="savoir-faire" className="flex flex-col justify-center px-6 py-10">
+        <div className="max-w-6xl mx-auto">
+          {/* Titre centré */}
+          <motion.h2
+            className="font-playfair text-4xl text-[#f3f3f3] text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            Notre savoir-faire
+          </motion.h2>
 
-            {/* Animation Rolex à droite */}
-            <div className="flex-1 flex justify-center items-center ml-12">
-              <div className="relative">
+          {/* Contenu : Texte + Image aligné sur les revendeurs */}
+          <div className="flex items-center justify-between">
+            {/* Texte à gauche */}
+            <div className="flex-1 max-w-2xl">
+              <motion.div
+                className="text-left"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
+                  L'excellence à chaque étapes
+                </h3>
+                <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
+                  Chez Rolex, chaque détail compte. De la sélection des matériaux les plus nobles à l'assemblage méticuleux des composants, nos horlogers perpétuent un savoir-faire transmis depuis plus d'un siècle. Les mouvements sont conçus, fabriqués et testés dans nos propres ateliers selon les standards les plus stricts de précision et de fiabilité. Chaque montre est soumise à une série de contrôles rigoureux pour garantir des performances exceptionnelles.
+                </p>
+                {/* Barre dorée */}
+                <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
+              </motion.div>
+            </div>
+
+            {/* Image à droite */}
+            <div className="hidden lg:flex flex-1 justify-center items-center ml-12">
+              <motion.div
+                className="relative w-80 h-80 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
                 <img
-                  ref={scrollImageRef}
-                  src="/src/rolex-assembly/Frame95.gif"
-                  alt="Rolex Assembly Animation"
-                  className="w-80 h-80 object-contain"
+                  src={horlogeImg}
+                  alt="Horloge Rolex"
+                  className="w-full h-full object-cover rounded-2xl"
                 />
                 {/* Effet de glow */}
-                <div className="absolute inset-0 bg-gradient-radial from-[rgba(124,114,53,0.15)] to-transparent rounded-full blur-2xl -z-10" />
-              </div>
+                <div className="absolute inset-0 bg-gradient-radial from-[rgba(124,114,53,0.15)] to-transparent rounded-2xl blur-3xl -z-10" />
+              </motion.div>
             </div>
           </div>
         </div>
@@ -204,38 +170,62 @@ export const Home = () => {
 
       {/* Heritage Section */}
       <section id="heritage" className="flex flex-col justify-center px-6 py-10">
-        <div className="max-w-6xl mx-auto" style={{ marginLeft: '10px' }}>
+        <div className="max-w-6xl mx-auto">
+          {/* Titre centré */}
           <motion.h2
-            className="font-playfair text-4xl text-[#f3f3f3] text-left mb-8"
+            className="font-playfair text-4xl text-[#f3f3f3] text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            style={{ paddingLeft: '1.5rem' }}
           >
             Un héritage d'exception
           </motion.h2>
 
-          <motion.div
-            className="text-left max-w-2xl"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            style={{ paddingLeft: '1.5rem' }}
-          >
-            <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
-              120 ans d'innovation horlogère
-            </h3>
-            <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-3">
-              Depuis sa création en 1905, Rolex incarne l'excellence, la précision et l'innovation. Des premières montres étanches aux modèles emblématiques d'aujourd'hui, la marque a marqué chaque époque par son audace et son savoir-faire.
-            </p>
-            <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
-              Rolex a accompagné les plus grands explorateurs, navigateurs et sportifs dans leurs exploits, devenant un véritable symbole de prestige à travers le monde.
-            </p>
-            {/* Barre dorée - couleur corrigée */}
-            <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
-          </motion.div>
+          {/* Contenu : Texte + Image aligné sur les revendeurs */}
+          <div className="flex items-center justify-between">
+            {/* Texte à gauche */}
+            <div className="flex-1 max-w-2xl">
+              <motion.div
+                className="text-left"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="font-manrope font-semibold text-[#e0e0e0] text-xl mb-4">
+                  120 ans d'innovation horlogère
+                </h3>
+                <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-3">
+                  Depuis sa création en 1905, Rolex incarne l'excellence, la précision et l'innovation. Des premières montres étanches aux modèles emblématiques d'aujourd'hui, la marque a marqué chaque époque par son audace et son savoir-faire.
+                </p>
+                <p className="font-manrope text-[#e0e0e0] text-base leading-relaxed mb-6">
+                  Rolex a accompagné les plus grands explorateurs, navigateurs et sportifs dans leurs exploits, devenant un véritable symbole de prestige à travers le monde.
+                </p>
+                {/* Barre dorée */}
+                <div className="w-96 h-0.5 bg-gradient-to-r from-[#7C7235] to-[#8d8340]"></div>
+              </motion.div>
+            </div>
+
+            {/* Image à droite */}
+            <div className="hidden lg:flex flex-1 justify-center items-center ml-12">
+              <motion.div
+                className="relative rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={montreImg}
+                  alt="Montre Rolex"
+                  className="w-80 h-80 object-contain rounded-2xl"
+                />
+                {/* Effet de glow */}
+                <div className="absolute inset-0 bg-gradient-radial from-[rgba(124,114,53,0.15)] to-transparent rounded-2xl blur-3xl -z-10" />
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -1,12 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+// Import du logo
+import logoR from '../../assets/watches/LogoR.png';
 
 export const Footer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const footerNavItems = [
-    { name: 'Accueil', path: '/' },
-    { name: 'Savoir-faire', path: '/savoir-faire' },
-    { name: 'Héritage', path: '/heritage' },
-    { name: 'Revendeur', path: '/revendeur' },
+    { name: 'Accueil', path: '/', anchor: '#accueil' },
+    { name: 'Savoir-faire', path: '/', anchor: '#savoir-faire' },
+    { name: 'Héritage', path: '/', anchor: '#savoir-faire' },
+    { name: 'Revendeur', path: '/', anchor: '#revendeur' },
   ];
 
   const legalItems = [
@@ -15,6 +21,28 @@ export const Footer = () => {
     '© Rolex 2025',
     'Tous droits réservés',
   ];
+
+  const handleNavClick = (path: string, anchor: string) => {
+    // Si on est sur la page d'accueil, scroll simple
+    if (location.pathname === '/') {
+      const element = document.querySelector(anchor);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      return;
+    }
+
+    // Navigation normale pour les autres cas
+    navigate(path);
+    if (anchor !== '#accueil') {
+      setTimeout(() => {
+        const element = document.querySelector(anchor);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <footer className="mt-20 border-t border-gray-600">
@@ -26,23 +54,23 @@ export const Footer = () => {
               www.rolexfrance.fr
             </span>
             <img
-              src="/r-avec-arrie-re-plan-supprime--1.png"
+              src={logoR}
               alt="Rolex R"
               className="w-8 h-8 object-contain"
             />
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation avec hover */}
         <nav className="flex justify-center space-x-12 mb-8">
           {footerNavItems.map((item) => (
-            <Link
+            <button
               key={item.name}
-              to={item.path}
+              onClick={() => handleNavClick(item.path, item.anchor)}
               className="font-manrope font-medium text-[#e6e6e6] hover:text-[#7C7235] transition-colors duration-300"
             >
               {item.name}
-            </Link>
+            </button>
           ))}
         </nav>
 
