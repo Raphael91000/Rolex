@@ -16,7 +16,7 @@ import oysterImg from '../assets/watches/OysterGreen.png';
 // Import des images des revendeurs
 import rolexParisImg from '../assets/watches/RolexParis.png';
 import rolexDubaiImg from '../assets/watches/RolexDubai.png';
-import RolexGeneveImg from '../assets/watches/RolexGeneve.webp';
+import RolexGeneveImg from '../assets/watches/RolexGeneve.png';
 
 export const Home = () => {
   const scrollImageRef = useRef<HTMLImageElement>(null);
