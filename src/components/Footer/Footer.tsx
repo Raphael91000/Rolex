@@ -45,7 +45,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="mt-20 border-t border-gray-600">
+          <footer className="mt-20 border-t border-[#7C7235]">
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Website Link */}
         <div className="flex justify-center mb-12">

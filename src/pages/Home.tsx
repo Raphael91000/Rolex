@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Footer } from '../components/Footer';
 
 // Import des images des montres
@@ -18,6 +19,8 @@ import rolexDubaiImg from '../assets/watches/RolexDubai.png';
 import rolexGeneveImg from '../assets/watches/RolexGeneve.png';
 
 export const Home = () => {
+  const [currentWatchIndex, setCurrentWatchIndex] = useState(0);
+
   const watches = [
     {
       name: 'Submariner',
@@ -35,6 +38,14 @@ export const Home = () => {
       path: '/oyster',
     },
   ];
+
+  const nextWatch = () => {
+    setCurrentWatchIndex((prev) => (prev + 1) % watches.length);
+  };
+
+  const prevWatch = () => {
+    setCurrentWatchIndex((prev) => (prev - 1 + watches.length) % watches.length);
+  };
 
   const retailers = [
     {
@@ -68,8 +79,8 @@ export const Home = () => {
           L'excellence horlogère depuis 1905
         </motion.h1>
 
-        {/* Watches Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl w-full mx-auto">
+        {/* Watches Grid - Desktop */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl w-full mx-auto">
           {watches.map((watch, index) => (
             <motion.div
               key={watch.name}
@@ -107,6 +118,83 @@ export const Home = () => {
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        {/* Carrousel Mobile */}
+        <div className="block md:hidden max-w-sm mx-auto">
+          <div className="relative flex items-center justify-center">
+            {/* Bouton Précédent */}
+            <button
+              onClick={prevWatch}
+              className="absolute left-0 z-10 p-2 text-white hover:text-[#7C7235] transition-colors duration-300"
+              aria-label="Montre précédente"
+            >
+              <ChevronLeft size={32} />
+            </button>
+
+            {/* Container de la montre */}
+            <div className="relative overflow-hidden w-full">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentWatchIndex}
+                  className="flex flex-col items-center"
+                  initial={{ x: 300, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -300, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  {/* Container uniforme pour toutes les montres */}
+                  <div className="relative">
+                    <div className="relative w-64 h-64 flex items-center justify-center">
+                      <img
+                        src={watches[currentWatchIndex].image}
+                        alt={watches[currentWatchIndex].name}
+                        className={`object-contain ${
+                          watches[currentWatchIndex].name === 'Datejust' ? 'w-44 h-44' : 
+                          watches[currentWatchIndex].name === 'Oyster' ? 'w-72 h-72 mt-3' :
+                          'w-64 h-64'
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  <h3 className="font-manrope font-medium text-[#e0e0e0] text-xl mt-4 mb-6">
+                    {watches[currentWatchIndex].name}
+                  </h3>
+
+                  <Link
+                    to={watches[currentWatchIndex].path}
+                    className="bg-[#7c7235] hover:bg-[#8d8340] text-black font-manrope font-medium px-6 py-2 rounded-full transition-colors duration-300"
+                  >
+                    Découvrir
+                  </Link>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Bouton Suivant */}
+            <button
+              onClick={nextWatch}
+              className="absolute right-0 z-10 p-2 text-white hover:text-[#7C7235] transition-colors duration-300"
+              aria-label="Montre suivante"
+            >
+              <ChevronRight size={32} />
+            </button>
+          </div>
+
+          {/* Indicateurs */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {watches.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentWatchIndex(index)}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                  index === currentWatchIndex ? 'bg-[#7C7235]' : 'bg-gray-600'
+                }`}
+                aria-label={`Aller à la montre ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
